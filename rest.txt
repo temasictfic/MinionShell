@@ -1,0 +1,7 @@
+redirections
+heredoc
+pipe
+lexer
+token
+orand
+wildcard
