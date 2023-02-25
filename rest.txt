@@ -1,6 +1,5 @@
 redirections
 heredoc
 pipe
-lexer
 orand
 wildcard

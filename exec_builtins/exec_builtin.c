@@ -48,7 +48,7 @@ int	exec_in_path(char *cmd, char **argv, char **env)
 	int		len;
 
 	if (*cmd == '.' || *cmd == '/')
-		return (runsearch_return(cmd, argv, env));
+		return (check_exec_cmd(cmd, argv, env));
 	search = env_get(env, "PATH");
 	if (search == NULL || *search == NULL)
 		return (err("command not found (PATH is not set)", cmd, 127));
