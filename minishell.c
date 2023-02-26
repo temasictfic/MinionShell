@@ -53,7 +53,7 @@ static void	set_env_at_start(t_env *env)
 	if (getcwd(path, PATH_BUF) == NULL)
 	{
 		if (errno == ERANGE)
-			err("minishell", "pathname length exceeds the buffer size", 1);
+			error("minishell", "pathname length exceeds the PATH_BUF size", strerror(errno), 1);
 		return ;
 	}
 	tmp = ft_strjoin("PWD=", path);
