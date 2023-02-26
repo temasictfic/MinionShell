@@ -2,18 +2,6 @@
 
 t_process	g_process = {0, 0, NULL};
 
-int	error(char *name, char *err, char *info, int code)
-{
-	perror(name);
-	perror(": ");
-	perror(err);
-	perror(": ");
-	perror(info);
-	perror("\n");
-	g_process.code = code;
-	return (-1);
-}
-
 static void	handle_sigquit(int signum)
 {
 	(void)signum;
