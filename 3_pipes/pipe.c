@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 static int	get_fd(t_redirection *redirs, char *subcmds, int fd)
 {

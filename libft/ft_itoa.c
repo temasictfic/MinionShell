@@ -1,6 +1,6 @@
 #include "libft.h"
 
-char	*itoa(int n)
+char	*ft_itoa(int n)
 {
 	int			i;
 	static char	res[13];

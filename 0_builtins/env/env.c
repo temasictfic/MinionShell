@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	env(int stdout, char **env)
 {

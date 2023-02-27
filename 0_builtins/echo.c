@@ -1,12 +1,12 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	echo(int stdout, char **args)
 {
 	int	nl;
 
 	nl = 1;
-	while (*args && **args == '-' && ft_is_only_charset(*args + 1, "n") && args++)
+	while (*args && **args == '-' && is_only_charset(*args + 1, "n") && args++)
 		nl = 0;
 	while (*args && **args == '\0')
 		args++;

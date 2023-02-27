@@ -45,8 +45,8 @@ static void	set_env_at_start(t_env *env)
 		return ;
 	}
 	tmp = ft_strjoin("PWD=", path);
-	env_set(&env->local, tmp);
-	env_set(&env->exported, tmp);
+	set_env(&env->local, tmp);
+	set_env(&env->exported, tmp);
 	g_process.pwd = ft_strdup(path);
 	free(tmp);
 }
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envs)
 	env_init(&env, envs);
 	signal(SIGQUIT, handle_sigquit);
 	signal(SIGINT, handle_sigint);
-	set_env_at_start(&envs);
+	set_env_at_start(&env);
 	while (1)
 	{
 		g_process.pid = 0;
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envs)
 		if (*line)
 			add_history(line);
 		if (!is_only_charset(line, "\t\n\v\f\r "))
-			orand(&env, line, 1, 0);
+			or_and(&env, line, 1, 0);
 		free(line);
 	}
 	printf("exit\n");

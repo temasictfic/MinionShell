@@ -1,16 +1,17 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
-static void	incr_pipe_count(char *s, int word_len, int *pipe_count)
+static int	incr_pipe_count(char *s, int word_len, int *pipe_count)
 {
 	if (word_len == 1 && *s == '|')
 		(*pipe_count)++;
+	return (0);
 }
 
 static int	check_pipe_error(char **pipes_ptr, int word_len)
 {
 	if (word_len != 1 || **pipes_ptr == '\0')
-		return (err("syntax error near unexpected token", "|", 258));
+		return (error("minishell", "syntax error near unexpected token", "|", 258));
 	*++pipes_ptr = ft_strdup("");
 	*++pipes_ptr = NULL;
 	return (0);

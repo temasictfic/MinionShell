@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static int	tokenize_callback(char **s, int *word_index, int (*token_fn)(), void *arg)
 {
@@ -32,7 +32,7 @@ int	tokenize(char *s, int (*token)(), void *arg)
 			word_start_index = word_index;
 			while (s[++word_index] != s[word_start_index])
 				if (s[word_index] == '\0')
-					return (err("syntax error unclosed token", s, 258));
+					return (error("minishell", "syntax error unclosed token", s, 258));
 			word_index++;
 		}
 		else if (s[word_index] && !is_space(s[word_index]) && !is_operator(s[word_index]))

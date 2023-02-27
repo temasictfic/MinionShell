@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static char	*or_and_exec(t_env *env, char *s, int exec)
 {

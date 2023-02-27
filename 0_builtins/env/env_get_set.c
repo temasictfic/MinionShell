@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 int	is_env_defined(char *s)
 {
@@ -15,16 +15,18 @@ int	is_env_defined(char *s)
 char	**get_envs(char **envs, char *keyvalue)
 {
 	char	*env_str;
+	int		i;
 
 	if (envs == NULL)
 		return (NULL);
 	while (*envs)
 	{
 		env_str = *envs;
+		i = 0;
 		while (*env_str)
-			if (!is_env_char(*keyvalue) && !is_env_char(*env_str))
+			if (!is_env_char(keyvalue[i]) && !is_env_char(*env_str))
 				return (envs);
-		    else if (*env_str++ != *keyvalue++)
+		    else if (*env_str++ != keyvalue[i++])
 			    break ;
 		envs++;
 	}
@@ -61,7 +63,7 @@ void	env_init(t_env *env, char **keyvalue_arr)
 {
 	while (*keyvalue_arr)
 	{
-		env_set(&(env->exported), *keyvalue_arr);
-		env_set(&(env->local), *keyvalue_arr++);
+		set_env(&(env->exported), *keyvalue_arr);
+		set_env(&(env->local), *keyvalue_arr++);
 	}
 }

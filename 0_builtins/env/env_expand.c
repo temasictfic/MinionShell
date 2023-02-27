@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 static char	*env_join(char *s, char *value, int *i, int len)
 {
@@ -28,7 +28,7 @@ static char	*env_var(char **envs, char *s, int *i)
 	len = 0;
 	while (is_env_char(s[*i + len]))
 		len++;
-	keyvalue_arr = env_get(envs, s + *i);
+	keyvalue_arr = get_envs(envs, s + *i);
 	if (keyvalue_arr == NULL)
 		return (s);
 	return (env_join(s, ft_strchr(*keyvalue_arr, '='), i, len));

@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static char	*read_heredocs(t_redirection *redir)
 {

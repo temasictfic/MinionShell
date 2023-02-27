@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	file_flags(int type)
 {
@@ -17,7 +17,7 @@ void	redirect_in(int stdin, t_redirection *redirs, char *s)
 	if (s)
 	{
 		pipe(fd);
-		ft_putstr(s, fd[1]);
+		ft_putstr_fd(s, fd[1]);
 		close(fd[1]);
 	}
 	while ((++redirs)->value)

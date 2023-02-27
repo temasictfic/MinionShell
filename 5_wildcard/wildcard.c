@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static t_token	**insert(t_token **tokens, int i, char *filename)
 {

@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 /**
 * will try to run a command from is full path
@@ -9,7 +9,7 @@
 static int	check_exec_cmd(char *cmd, char **argv, char **env)
 {
 	if (access(cmd, X_OK) == -1 || execve(cmd, argv, env) == -1)
-		return (err(strerror(errno), cmd, errno));
+		return (error("minishell", strerror(errno), cmd, errno));
 	return (0);
 }
 
@@ -49,9 +49,9 @@ int	exec_in_path(char *cmd, char **argv, char **env)
 
 	if (*cmd == '.' || *cmd == '/')
 		return (check_exec_cmd(cmd, argv, env));
-	search = env_get(env, "PATH");
+	search = get_envs(env, "PATH");
 	if (search == NULL || *search == NULL)
-		return (err("command not found (PATH is not set)", cmd, 127));
+		return (error("minishell", "command not found (PATH is not set)", cmd, 127));
 	path = *search;
 	while (*path)
 	{
@@ -65,7 +65,7 @@ int	exec_in_path(char *cmd, char **argv, char **env)
             return (0);
 		path += len + (path[len] == ':');
 	}
-	return (err("command not found", cmd, 127));
+	return (error("minishell", "command not found", cmd, 127));
 }
 
 static int	exec_builtin_argv(char **argv, t_env *envs, int stdout)

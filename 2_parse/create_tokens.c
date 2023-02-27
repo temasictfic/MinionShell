@@ -1,11 +1,12 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
-static void	incr_token_count(char *s, int word_len, int *token_count)
+static int	incr_token_count(char *s, int word_len, int *token_count)
 {
 	(void)s;
 	if (word_len > 0)
 		(*token_count)++;
+	return (0);
 }
 
 static void	tokenize_word(char *s, int word_index, void (*itc_or_cqw)(char *s, int n, void *arg),

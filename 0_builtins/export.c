@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static void	print_export(int stdout, char *keyvalue)
 {

@@ -7,7 +7,7 @@
 int				ft_atol(const char *nptr, long *v);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
-char			*itoa(int n);
+char			*ft_itoa(int n);
 void			ft_putstr_fd(char *s, int fd);
 char			*ft_strcat(char *dest, const char *src);
 char			*ft_strchr(const char *str, int c);

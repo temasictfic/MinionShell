@@ -1,11 +1,12 @@
 
 
-#include "minishell.h"
+#include "../minishell.h"
 
-static void	incr_redir_count(char *s, int word_len, int *redir_count)
+static int	incr_redir_count(char *s, int word_len, int *redir_count)
 {
 	if (is_redir(s, word_len))
 		(*redir_count)++;
+	return (0);
 }
 
 static int	assign_redir_type(char *s, int word_len, t_redirection *redir_ptr)
