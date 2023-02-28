@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:27:03 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:57:55 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -20,7 +31,7 @@ void	export(int stdout, char **argv, t_env *env)
 			if (**exported)
 				print_export(stdout, *exported++);
 		else
-			exported++;
+				exported++;
 	}
 	while (*argv)
 	{

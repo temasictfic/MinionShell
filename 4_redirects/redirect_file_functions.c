@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_file_functions.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:28:10 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:39:10 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -41,10 +52,11 @@ int	redirect_out(t_redirection *redirs)
 		if (*redirs->value && (redirs->type == REDIR_OUTPUT
 				|| redirs->type == REDIR_APPEND))
 		{
-			redirs->fd = open(redirs->value + 1, file_flags(redirs->type), \
-			S_IRWXU);
+			redirs->fd = open(redirs->value + 1, file_flags(redirs->type),
+					S_IRWXU);
 			if (redirs->fd == -1)
-				return (error("minishell", redirs->value + 1, "permission denied", 1));
+				return (error(SH, redirs->value + 1,
+						"permission denied", 1));
 			dup2(redirs->fd, 1);
 		}
 		redirs++;
@@ -62,5 +74,3 @@ void	close_out(t_redirection *redirs)
 		redirs++;
 	}
 }
-
-

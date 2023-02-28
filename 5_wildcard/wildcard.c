@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wildcard.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:28:21 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:31:03 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -16,8 +27,8 @@ static t_token	**insert(t_token **tokens, int i, char *filename)
 	while (token_count--)
 		if (token_count >= i)
 			res[token_count + 1] = tokens[token_count];
-	    else
-		    res[token_count] = tokens[token_count];
+	else
+			res[token_count] = tokens[token_count];
 	res[i] = malloc(sizeof(t_token) * 2);
 	res[i][0].word = ft_strdup(filename);
 	res[i][0].expand_char = '\0';
@@ -42,8 +53,8 @@ static int	check_pattern(char *pattern, char *file)
 	return (*file == '\0' && *pattern == '\0');
 }
 
-static void	wildcard_process(t_token ***tokens, struct dirent *file,
-	int *i, int *count)
+static void	wildcard_process(t_token ***tokens, struct dirent *file, int *i,
+		int *count)
 {
 	if ((*count)++)
 		*tokens = insert(*tokens, (*i)++, file->d_name);
@@ -68,8 +79,8 @@ static void	wildcard_replace(t_token ***tokens, int *i)
 		file = readdir(dir);
 		if (file == NULL)
 			break ;
-		if (!(*pattern == '*' && *file->d_name == '.')
-			&& check_pattern(pattern, file->d_name))
+		if (!(*pattern == '*' && *file->d_name == '.') && check_pattern(pattern,
+				file->d_name))
 			wildcard_process(tokens, file, i, &count);
 	}
 	if (count)
@@ -85,7 +96,7 @@ void	wildcard_expand(t_token ***tokens)
 	while ((*tokens)[++i])
 	{
 		if ((*tokens)[i][1].word == NULL && (*tokens)[i]->expand_char != '"'
-				&& (*tokens)[i]->expand_char != '\'')
+			&& (*tokens)[i]->expand_char != '\'')
 			wildcard_replace(tokens, &i);
 	}
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:27:27 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:53:00 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -9,7 +20,7 @@
 static int	check_exec_cmd(char *cmd, char **argv, char **env)
 {
 	if (access(cmd, X_OK) == -1 || execve(cmd, argv, env) == -1)
-		return (error("minishell", strerror(errno), cmd, errno));
+		return (error(SH, strerror(errno), cmd, errno));
 	return (0);
 }
 
@@ -42,32 +53,30 @@ static char	*concat_relative_path(char *path, int n, char *relative)
 */
 int	exec_in_path(char *cmd, char **argv, char **env)
 {
-	char	**search;
-	char	*path;
+	char	**path;
 	char	*file;
 	int		len;
 
 	if (*cmd == '.' || *cmd == '/')
 		return (check_exec_cmd(cmd, argv, env));
-	search = get_envs(env, "PATH");
-	if (search == NULL || *search == NULL)
-		return (error("minishell", "command not found (PATH is not set)", cmd, 127));
-	path = *search;
-	while (*path)
+	path = get_envs(env, "PATH");
+	if (path == NULL || *path == NULL)
+		return (error(SH, "command not found (PATH is not set)", cmd, 127));
+	while (**path)
 	{
 		len = 0;
-		while (path[len] && path[len] != ':')
+		while (*path[len] && *path[len] != ':')
 			len++;
-		file = concat_relative_path(path, len, cmd);
-        if (!(access(file, X_OK) == -1 || execve(file, argv, env) == -1))
+		file = concat_relative_path(*path, len, cmd);
+		if (!(access(file, X_OK) == -1 || execve(file, argv, env) == -1))
 		{
 			free(file);
 			return (0);
 		}
 		free(file);
-		path += len + (path[len] == ':');
+		*path += len + (*path[len] == ':');
 	}
-	return (error("minishell", "command not found", cmd, 127));
+	return (error(SH, "command not found", cmd, 127));
 }
 
 static int	exec_builtin_argv(char **argv, t_env *envs, int stdout)
@@ -90,7 +99,7 @@ static int	exec_builtin_argv(char **argv, t_env *envs, int stdout)
 		exit_shell(stdout, argv + 1);
 	else
 		return (-1);
-	return(0);
+	return (0);
 }
 
 int	exec_builtin(char *cmd, t_env *env, int stdout)

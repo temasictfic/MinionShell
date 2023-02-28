@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_tokens.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:27:34 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:27:37 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -9,8 +20,8 @@ static int	incr_token_count(char *s, int word_len, int *token_count)
 	return (0);
 }
 
-static void	tokenize_word(char *s, int word_index, void (*itc_or_cqw)(char *s, int n, void *arg),
-		void *token_count_or_ptr)
+static void	tokenize_word(char *s, int word_index, void (*itc_or_cqw)(char *s,
+			int n, void *arg), void *token_count_or_ptr)
 {
 	int	word_len;
 
@@ -61,12 +72,12 @@ static int	fill_tokens(char *s, int word_index, t_token **token_ptr)
 	while (*token_ptr)
 		token_ptr++;
 	token_count = 1;
-	tokenize_word(s, word_index, (void (*)()) incr_token_count, &token_count);
+	tokenize_word(s, word_index, (void (*)())incr_token_count, &token_count);
 	*token_ptr = malloc(token_count * sizeof(t_token));
 	if (*token_ptr == NULL)
 		return (0);
 	(*token_ptr)->word = NULL;
-	tokenize_word(s, word_index, (void (*)()) copy_quote_word, *token_ptr);
+	tokenize_word(s, word_index, (void (*)())copy_quote_word, *token_ptr);
 	*++token_ptr = NULL;
 	return (0);
 }
@@ -83,6 +94,6 @@ t_token	**create_tokens(char *s)
 	if (tokens_ptr == NULL)
 		return (NULL);
 	*tokens_ptr = NULL;
-	tokenize(s, (int (*)()) fill_tokens, tokens_ptr);
+	tokenize(s, (int (*)())fill_tokens, tokens_ptr);
 	return (tokens_ptr);
 }

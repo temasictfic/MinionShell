@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_env_char.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:28:33 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:28:34 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
 int	is_env_char(char c)
 {
-    return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
+	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
 }

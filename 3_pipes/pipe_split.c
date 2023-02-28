@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_split.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:27:56 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:38:58 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -11,7 +22,8 @@ static int	incr_pipe_count(char *s, int word_len, int *pipe_count)
 static int	check_pipe_error(char **pipes_ptr, int word_len)
 {
 	if (word_len != 1 || **pipes_ptr == '\0')
-		return (error("minishell", "syntax error near unexpected token", "|", 258));
+		return (error(SH, "syntax error near unexpected token", "|",
+				258));
 	*++pipes_ptr = ft_strdup("");
 	*++pipes_ptr = NULL;
 	return (0);
@@ -54,7 +66,7 @@ char	**pipe_split(char *s)
 		return (NULL);
 	pipes_ptr[0] = ft_strdup("");
 	pipes_ptr[1] = NULL;
-	if (tokenize(s, (int (*)()) fill_pipes, pipes_ptr) == -1)
+	if (tokenize(s, (int (*)())fill_pipes, pipes_ptr) == -1)
 	{
 		free_argv(pipes_ptr);
 		return (NULL);

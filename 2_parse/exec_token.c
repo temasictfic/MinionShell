@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_token.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:27:40 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:27:44 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -16,7 +27,7 @@ static char	*token_join(t_token *token)
 		while (token[i].word[++j])
 			total_len++;
 	}
-	joined_str= malloc((total_len + 1) * sizeof(char));
+	joined_str = malloc((total_len + 1) * sizeof(char));
 	joined_str[total_len] = '\0';
 	total_len = 0;
 	i = -1;

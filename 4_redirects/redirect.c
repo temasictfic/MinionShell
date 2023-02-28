@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:28:15 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:39:19 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -12,7 +22,8 @@ static int	incr_redir_count(char *s, int word_len, int *redir_count)
 static int	assign_redir_type(char *s, int word_len, t_redirection *redir_ptr)
 {
 	if (s[word_len] == '\0')
-		return (error("minishell", "syntax error near unexpected token", s, 258));
+		return (error(SH, "syntax error near unexpected token", s,
+				258));
 	redir_ptr[1].value = ft_strdup("");
 	if (word_len == 2 && s[1] == '<')
 		redir_ptr[1].type = REDIR_HEREDOC;
@@ -61,7 +72,7 @@ t_redirection	*exec_redirections(char *cmd, t_env *env)
 	t_redirection	*redir_ptr;
 	int				redir_count;
 
-	(void) env;
+	(void)env;
 	redir_count = 2;
 	if (tokenize(cmd, incr_redir_count, &redir_count) == -1)
 		return (NULL);
@@ -71,7 +82,7 @@ t_redirection	*exec_redirections(char *cmd, t_env *env)
 	redir_ptr[0].value = ft_strdup("");
 	redir_ptr[0].type = REDIR_NOT;
 	redir_ptr[1].value = NULL;
-	if (tokenize(cmd, (int (*)()) fill_redirects, redir_ptr))
+	if (tokenize(cmd, (int (*)())fill_redirects, redir_ptr))
 	{
 		free_redirections(redir_ptr);
 		return (NULL);

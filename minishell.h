@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:29:50 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:35:59 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -14,6 +26,7 @@
 # include <sys/wait.h>
 
 # define PATH_BUF 4096
+# define SH "minishell"
 
 # define START "\033[0;36m"
 # define BOLD "\033[1m"

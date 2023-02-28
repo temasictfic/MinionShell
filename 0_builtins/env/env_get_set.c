@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_get_set.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:26:25 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:54:19 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../minishell.h"
 
@@ -5,7 +16,7 @@ int	is_env_defined(char *s)
 {
 	if (ft_isdigit(*s) || !is_env_char(*s++))
 		return (0);
-	while(*s)
+	while (*s)
 		s++;
 	if (*s == '=')
 		return (1);
@@ -26,8 +37,8 @@ char	**get_envs(char **envs, char *keyvalue)
 		while (*env_str)
 			if (!is_env_char(keyvalue[i]) && !is_env_char(*env_str))
 				return (envs);
-		    else if (*env_str++ != keyvalue[i++])
-			    break ;
+		else if (*env_str++ != keyvalue[i++])
+			break ;
 		envs++;
 	}
 	return (NULL);

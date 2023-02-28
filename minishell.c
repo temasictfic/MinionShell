@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:29:57 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:59:56 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_process	g_process = {0, 0, NULL};
@@ -41,7 +53,8 @@ static void	set_env_at_start(t_env *env)
 	if (getcwd(path, PATH_BUF) == NULL)
 	{
 		if (errno == ERANGE)
-			error("minishell", "pathname length exceeds the PATH_BUF size", strerror(errno), 1);
+			error(SH, "pathname length exceeds the PATH_BUF size",
+				strerror(errno), 1);
 		return ;
 	}
 	tmp = ft_strjoin("PWD=", path);

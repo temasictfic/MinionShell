@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_expand.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:26:08 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:55:12 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../minishell.h"
 
@@ -36,7 +47,7 @@ static char	*env_var(char **envs, char *s, int *i)
 
 static char	*env_replace(char **envs, char *s)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (s[++i])
@@ -60,15 +71,13 @@ void	env_expand(char **envs, t_token **tokens)
 		i = -1;
 		while ((*tokens)[++i].word)
 			if ((*tokens)[i].expand_char != '\''
-					&& (*tokens)[i].expand_char != '"'
-					&& *(*tokens)[i].word == '$'
-					&& (*tokens)[i].word[1] == '\0'
-					&& (*tokens)[i + 1].word
-					&& ((*tokens)[i + 1].expand_char == '\''
-						|| (*tokens)[i + 1].expand_char == '"'))
+				&& (*tokens)[i].expand_char != '"' && *(*tokens)[i].word == '$'
+				&& (*tokens)[i].word[1] == '\0' && (*tokens)[i + 1].word
+				&& ((*tokens)[i + 1].expand_char == '\'' || (*tokens)[i
+				+ 1].expand_char == '"'))
 				*(*tokens)[i].word = '\0';
 		else if ((*tokens)[i].expand_char != '\'')
-			(*tokens)[i].word = env_replace(envs, (*tokens)[i].word);
+				(*tokens)[i].word = env_replace(envs, (*tokens)[i].word);
 		tokens++;
 	}
 }

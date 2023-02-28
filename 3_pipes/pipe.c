@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 04:28:01 by sciftci           #+#    #+#             */
+/*   Updated: 2023/02/28 04:39:56 by sciftci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static int	get_fd(t_redirection *redirs, char *subcmds, int fd)
@@ -8,23 +20,22 @@ static int	get_fd(t_redirection *redirs, char *subcmds, int fd)
 	{
 		if (*redirs->value && redirs->type == REDIR_INPUT
 			&& access(redirs->value + 1, R_OK))
-			return (error("minishell", redirs->value + 1, strerror(errno), 1));
+			return (error(SH, redirs->value + 1, strerror(errno), 1));
 		else if (*redirs->value && (redirs->type == REDIR_OUTPUT
 				|| redirs->type == REDIR_APPEND))
 		{
 			if (fd != 1)
 				close(fd);
-			fd = open(redirs->value + 1, file_flags(redirs->type),
-					S_IRWXU);
+			fd = open(redirs->value + 1, file_flags(redirs->type), S_IRWXU);
 			if (fd == -1)
-				return (error("minishell", redirs->value + 1, "permission denied", 1));
+				return (error(SH, redirs->value + 1,
+						"permission denied", 1));
 		}
 	}
 	return (fd);
 }
 
-static void	pipe_wait(pid_t pid, char *s,
-		t_redirection *redirs)
+static void	pipe_wait(pid_t pid, char *s, t_redirection *redirs)
 {
 	if (pid)
 	{
@@ -89,10 +100,10 @@ void	pipe_parse(t_env *env, char *cmd)
 
 	subcmds = pipe_split(cmd);
 	if (subcmds == NULL)
-    {
-        free(cmd);
-        return;
-    }
+	{
+		free(cmd);
+		return ;
+	}
 	i = 0;
 	while (subcmds[i] && subcmds[i + 1])
 	{
@@ -100,8 +111,8 @@ void	pipe_parse(t_env *env, char *cmd)
 		{
 			free_argv(subcmds);
 			free(cmd);
-			error("minishell", "syntax error near unexpected token", "|", 258);
-            return;
+			error(SH, "syntax error near unexpected token", "|", 258);
+			return ;
 		}
 	}
 	if (*subcmds && **subcmds)
