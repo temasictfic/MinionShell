@@ -6,7 +6,7 @@
 /*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 04:27:27 by sciftci           #+#    #+#             */
-/*   Updated: 2023/02/28 12:12:56 by sciftci          ###   ########.fr       */
+/*   Updated: 2023/02/28 13:32:01 by sciftci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int	check_exec_cmd(char *cmd, char **argv, char **env)
 {
-	if (file(cmd, X_OK) == -1 || execve(cmd, argv, env) == -1)
+	if (access(cmd, X_OK) == -1 || execve(cmd, argv, env) == -1)
 		return (error(SH, strerror(errno), cmd, errno));
 	return (0);
 }
