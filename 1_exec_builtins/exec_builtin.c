@@ -6,7 +6,7 @@
 /*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 04:27:27 by sciftci           #+#    #+#             */
-/*   Updated: 2023/02/28 04:53:00 by sciftci          ###   ########.fr       */
+/*   Updated: 2023/02/28 11:51:10 by sciftci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,28 +53,30 @@ static char	*concat_relative_path(char *path, int n, char *relative)
 */
 int	exec_in_path(char *cmd, char **argv, char **env)
 {
-	char	**path;
+	char	**search;
+	char	*path;
 	char	*file;
 	int		len;
 
 	if (*cmd == '.' || *cmd == '/')
 		return (check_exec_cmd(cmd, argv, env));
-	path = get_envs(env, "PATH");
-	if (path == NULL || *path == NULL)
+	search = get_envs(env, "PATH");
+	if (search == NULL || *search == NULL)
 		return (error(SH, "command not found (PATH is not set)", cmd, 127));
-	while (**path)
+	path = *search;
+	while (*path)
 	{
 		len = 0;
-		while (*path[len] && *path[len] != ':')
+		while (path[len] && path[len] != ':')
 			len++;
-		file = concat_relative_path(*path, len, cmd);
+		file = concat_relative_path(path, len, cmd);
 		if (!(access(file, X_OK) == -1 || execve(file, argv, env) == -1))
 		{
 			free(file);
 			return (0);
 		}
 		free(file);
-		*path += len + (*path[len] == ':');
+		path += len + (path[len] == ':');
 	}
 	return (error(SH, "command not found", cmd, 127));
 }
