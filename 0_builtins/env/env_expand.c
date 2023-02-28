@@ -6,9 +6,9 @@ static char	*env_join(char *s, char *value, int *i, int len)
 	char	*out;
 	int		value_len;
 
-	if (value == NULL)
+	if (value++ == NULL)
 		return (s);
-	value_len = ft_strlen(++value);
+	value_len = ft_strlen(value);
 	out = malloc(sizeof(char) * (ft_strlen(s) + value_len - len + 1));
 	ft_strlcpy(out, s, *i);
 	ft_strcat(out, value);

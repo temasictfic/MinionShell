@@ -59,10 +59,12 @@ int	exec_in_path(char *cmd, char **argv, char **env)
 		while (path[len] && path[len] != ':')
 			len++;
 		file = concat_relative_path(path, len, cmd);
-        if (access(file, X_OK) == -1 || execve(file, argv, env) == -1)
-            free(file);
-        if (!file)
-            return (0);
+        if (!(access(file, X_OK) == -1 || execve(file, argv, env) == -1))
+		{
+			free(file);
+			return (0);
+		}
+		free(file);
 		path += len + (path[len] == ':');
 	}
 	return (error("minishell", "command not found", cmd, 127));

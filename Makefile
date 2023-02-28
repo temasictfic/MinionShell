@@ -1,12 +1,10 @@
 NAME		=	minishell
 
-HEADER 		= 	minishell.h
-
 LIBFT		=	libft/libft.a
 
-CC			=	cc
+CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror -g -I $(HEADER)
+CFLAGS		=	-Wall -Wextra -Werror -g
 
 
 READLINE 	=	-lreadline \
@@ -49,20 +47,19 @@ OBJS		=	$(SRCS:.c=.o)
 
 all			:	$(NAME)
 
-$(NAME)		:	$(LIBFT) $(OBJS) $(HEADER)
-				$(CC) $(CFLAGS) $(LIBFT) $(OBJS) $(READLINE) -o $(NAME)
+$(NAME)		:	$(LIBFT) $(OBJS) 
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(READLINE) $(LIBFT)
 
 $(LIBFT)	:
 				make -C ./libft
 
 clean		:
-				make clean -C ./libft
 				rm -rf $(OBJS)
-				
+				make clean -C ./libft
 
 fclean		:	clean
-				make fclean -C ./libft
 				rm -rf $(NAME)
+				make fclean -C ./libft
 
 re			:	fclean all
 
