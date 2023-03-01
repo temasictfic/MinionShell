@@ -16,7 +16,7 @@ int	is_env_defined(char *s)
 {
 	if (ft_isdigit(*s) || !is_env_char(*s++))
 		return (0);
-	while (*s)
+	while (is_env_char(*s))
 		s++;
 	if (*s == '=')
 		return (1);
